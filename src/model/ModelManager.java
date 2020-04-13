@@ -1,6 +1,6 @@
 package model;
 
-import networking.client.Client;
+import networking.client.RMIClient;
 import networking.shared.Message;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -9,13 +9,13 @@ import java.io.IOException;
 
 public class ModelManager implements Model {
   private PropertyChangeSupport property = new PropertyChangeSupport(this);  //Subject part
-  private Client client;
+  private RMIClient RMIClient;
 
-  public ModelManager(Client client) throws IOException
+  public ModelManager(RMIClient RMIClient) throws IOException
   {
-    this.client = client;
-    this.client.startClient();
-    this.client.addListener("NewMessage", this::onNewMessage);
+    this.RMIClient = RMIClient;
+    this.RMIClient.startClient();
+    this.RMIClient.addListener("NewMessage", this::onNewMessage);
   }
 
   private void onNewMessage(PropertyChangeEvent event) {
@@ -29,17 +29,17 @@ public class ModelManager implements Model {
 
   @Override
   public void setUserName(String name) {
-    this.client.setUsername(name);
+    this.RMIClient.setUsername(name);
   }
 
   @Override
   public void sendMessage(Message message) {
-    this.client.sendMessage(message);
+    this.RMIClient.sendMessage(message);
   }
 
   @Override public void greetingsMessage(Message message)
   {
-    this.client.greetingsMessage(message);
+    this.RMIClient.greetingsMessage(message);
   }
 
   @Override
