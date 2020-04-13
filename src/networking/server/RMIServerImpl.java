@@ -1,8 +1,8 @@
 package networking.server;
 
-import networking.client.RMIClient;
-import networking.client.RMIClientImpl;
+import networking.shared.RMIClient;
 import networking.shared.Message;
+import networking.shared.RMIServer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -18,30 +18,34 @@ public class RMIServerImpl implements RMIServer {
     }
 
     @Override
-    public void sendMessage(Message message, String username) {
-        client.sendMessage(message);
-        updateClients(message);
+    public void sendMessage(Message message) {
+        broadcastMessage(message.toString());
         for (RMIClient myClient : this.clientsForBroadcast) {
-            myClient.messageReceived(message);
+            myClient.messageReceived(message.toString());
         }
     }
 
-    private void updateClients(Message message) {
+    @Override
+    public void broadcastMessage(String message) {
         for (RMIClient client : this.clientsForBroadcast) {
             client.messageReceived(message);
         }
     }
 
-    @Override
+    /*@Override
     public void setUsername(String username, RMIClient client) {
-        client.setUsername(username);
-    }
+        for (RMIClient myClient : this.clientsForBroadcast) {
+            if (myClient.equals(client)){
+                myClient.setUsername(username);
+            }
+        }
+    }*/
 
     @Override
-    public void greetingsMessage(Message message, RMIClient notForMe) {
+    public void greetingsMessage(RMIClient notForMe) {
         for (RMIClient client : this.clientsForBroadcast) {
             if (client.equals(notForMe)) continue;
-            client.greetingsMessage(message);
+            client.messageReceived(notForMe.getUsername() + " has entered the chat");
         }
     }
 

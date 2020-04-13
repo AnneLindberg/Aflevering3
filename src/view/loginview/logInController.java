@@ -11,6 +11,7 @@ import viewmodel.LogInViewModel;
 
 import java.awt.*;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 public class logInController implements ViewController
 {
@@ -23,15 +24,13 @@ public class logInController implements ViewController
   }
 
   public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory)
-      throws IOException
-  {
+          throws IOException, NotBoundException {
     this.logInViewModel = viewModelFactory.getLogInViewModel();
     this.viewHandler = viewHandler;
     this.usernameTextField.textProperty().bindBidirectional(logInViewModel.usernameProperty());
   }
 
-  public void onLogInButton(ActionEvent actionEvent) throws IOException
-  {
+  public void onLogInButton(ActionEvent actionEvent) throws IOException, NotBoundException {
    logInViewModel.login();
    viewHandler.openChatView();
   }

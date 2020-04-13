@@ -1,5 +1,7 @@
 package networking.server;
 
+import networking.shared.RMIServer;
+
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.registry.LocateRegistry;

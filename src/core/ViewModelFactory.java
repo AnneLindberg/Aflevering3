@@ -4,6 +4,7 @@ import viewmodel.ChatViewModel;
 import viewmodel.LogInViewModel;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 public class ViewModelFactory
 {
@@ -16,8 +17,7 @@ public class ViewModelFactory
     this.modelFactory = modelFactory;
   }
 
-  public ChatViewModel getChatViewModel() throws IOException
-  {
+  public ChatViewModel getChatViewModel() throws IOException, NotBoundException {
     if (chatViewModel == null)
     {
       chatViewModel = new ChatViewModel(modelFactory.getModel());
@@ -25,8 +25,7 @@ public class ViewModelFactory
     return chatViewModel;
   }
 
-  public LogInViewModel getLogInViewModel() throws IOException
-  {
+  public LogInViewModel getLogInViewModel() throws IOException, NotBoundException {
     if (logInViewModel == null)
     {
       logInViewModel = new LogInViewModel(modelFactory.getModel());

@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import view.ViewController;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 public class ViewHandler
 {
@@ -19,14 +20,12 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start() throws IOException
-  {
+  public void start() throws IOException, NotBoundException {
     stage = new Stage();
     openLogInView();
   }
 
-  public void openChatView() throws IOException
-  {
+  public void openChatView() throws IOException, NotBoundException {
       Parent root = loadFXML("../view/chatview/chatView.fxml");
       stage.setTitle("ChatWindow");
       chatScene = new Scene(root);
@@ -34,8 +33,7 @@ public class ViewHandler
       stage.show();
   }
 
-  public void openLogInView() throws IOException
-  {
+  public void openLogInView() throws IOException, NotBoundException {
     Parent root = loadFXML("../view/loginview/logIn.fxml");
     stage.setTitle("Log In Window");
     Scene logInScene = new Scene(root);
@@ -45,8 +43,7 @@ public class ViewHandler
   }
 
 
-  private Parent loadFXML(String path) throws IOException
-  {
+  private Parent loadFXML(String path) throws IOException, NotBoundException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource(path));
     Parent root = null;

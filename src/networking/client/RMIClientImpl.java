@@ -1,35 +1,33 @@
 package networking.client;
 
-import networking.server.RMIServer;
+import networking.shared.RMIServer;
 import networking.shared.Message;
+import networking.shared.RMIClient;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class RMIClientImpl implements RMIClient{
+public class RMIClientImpl implements RMIClient {
 
     private String username;
     private PropertyChangeSupport property;
     private RMIServer server;
 
-    public RMIClientImpl(String username, RMIServer server) {
-        this.username = username;
+    public RMIClientImpl() {
         this.property = new PropertyChangeSupport(this);
-        this.server = server;
     }
 
     @Override
-    public void startClient() throws IOException {
-        Registry registry = LocateRegistry.getRegistry("localhost", 2020);
-        try {
-            server = (RMIServer) registry.lookup("Server");
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        }
+    public void startClient() throws IOException, NotBoundException {
+        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+        server = (RMIServer) registry.lookup("Server");
+        server.registerClient(this);
+        System.out.println("Client connected to server hehe");
     }
 
     @Override
@@ -44,19 +42,27 @@ public class RMIClientImpl implements RMIClient{
     }
 
     @Override
-    public void sendMessage(Message message, String username) {
-        server.sendMessage(message);
+    public void sendMessage(Message message) {
+        try {
+            server.sendMessage(message);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void setUsername(String username) {
-
+        this.username = username;
     }
 
 
     @Override
     public void greetingsMessage(Message message) {
-
+        try {
+            this.server.greetingsMessage(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

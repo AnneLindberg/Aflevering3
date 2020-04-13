@@ -3,6 +3,7 @@ package core;
 import model.*;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 public class ModelFactory
 {
@@ -14,8 +15,7 @@ public class ModelFactory
     this.clientFactory=clientFactory;
   }
 
-  public Model getModel() throws IOException
-  {
+  public Model getModel() throws IOException, NotBoundException {
     if(model == null){
       model = new ModelManager(clientFactory.getRMIClient());
     }

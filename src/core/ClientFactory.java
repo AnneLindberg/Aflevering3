@@ -1,6 +1,7 @@
 package core;
 
-import networking.client.RMIClient;
+import networking.client.RMIClientImpl;
+import networking.shared.RMIClient;
 
 import java.io.IOException;
 
@@ -12,6 +13,7 @@ public class ClientFactory
     {
     if(RMIClient == null){
         //client = new SocketClient();
+        this.RMIClient = new RMIClientImpl();
     }
     return RMIClient;
     }

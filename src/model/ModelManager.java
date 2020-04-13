@@ -1,18 +1,18 @@
 package model;
 
-import networking.client.RMIClient;
+import networking.shared.RMIClient;
 import networking.shared.Message;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 public class ModelManager implements Model {
   private PropertyChangeSupport property = new PropertyChangeSupport(this);  //Subject part
   private RMIClient RMIClient;
 
-  public ModelManager(RMIClient RMIClient) throws IOException
-  {
+  public ModelManager(RMIClient RMIClient) throws IOException, NotBoundException {
     this.RMIClient = RMIClient;
     this.RMIClient.startClient();
     this.RMIClient.addListener("NewMessage", this::onNewMessage);

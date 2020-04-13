@@ -10,6 +10,7 @@ import view.ViewController;
 import viewmodel.ChatViewModel;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 
 public class ChatViewController implements ViewController
 {
@@ -25,8 +26,7 @@ public class ChatViewController implements ViewController
   }
 
   public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory)
-      throws IOException
-  {
+          throws IOException, NotBoundException {
     this.viewHandler = viewHandler;
     this.chatViewModel = viewModelFactory.getChatViewModel();
     this.userMessage.textProperty().bindBidirectional(chatViewModel.getUserMessageProperty());
@@ -48,8 +48,7 @@ public class ChatViewController implements ViewController
   }
 
 
-  public void onLogin(ActionEvent actionEvent) throws IOException
-  {
+  public void onLogin(ActionEvent actionEvent) throws IOException, NotBoundException {
     viewHandler.openLogInView();
   }
 }
