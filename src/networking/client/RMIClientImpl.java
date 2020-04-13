@@ -26,7 +26,7 @@ public class RMIClientImpl implements RMIClient {
     public void startClient() throws IOException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry("localhost", 1099);
         server = (RMIServer) registry.lookup("Server");
-        server.registerClient(this);
+        //server.registerClient(this);
         System.out.println("Client connected to server hehe");
     }
 
@@ -53,6 +53,11 @@ public class RMIClientImpl implements RMIClient {
     @Override
     public void setUsername(String username) {
         this.username = username;
+        try {
+            server.registerClient(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
 

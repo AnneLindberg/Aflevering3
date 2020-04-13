@@ -20,9 +20,6 @@ public class RMIServerImpl implements RMIServer {
     @Override
     public void sendMessage(Message message) {
         broadcastMessage(message.toString());
-        for (RMIClient myClient : this.clientsForBroadcast) {
-            myClient.messageReceived(message.toString());
-        }
     }
 
     @Override

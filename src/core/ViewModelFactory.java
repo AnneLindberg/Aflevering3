@@ -25,10 +25,14 @@ public class ViewModelFactory
     return chatViewModel;
   }
 
-  public LogInViewModel getLogInViewModel() throws IOException, NotBoundException {
+  public LogInViewModel getLogInViewModel() throws IOException {
     if (logInViewModel == null)
     {
-      logInViewModel = new LogInViewModel(modelFactory.getModel());
+      try {
+        logInViewModel = new LogInViewModel(modelFactory.getModel());
+      } catch (NotBoundException e) {
+        e.printStackTrace();
+      }
     }
     return logInViewModel;
   }

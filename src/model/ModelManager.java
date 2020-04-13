@@ -12,9 +12,13 @@ public class ModelManager implements Model {
   private PropertyChangeSupport property = new PropertyChangeSupport(this);  //Subject part
   private RMIClient RMIClient;
 
-  public ModelManager(RMIClient RMIClient) throws IOException, NotBoundException {
+  public ModelManager(RMIClient RMIClient) throws IOException {
     this.RMIClient = RMIClient;
-    this.RMIClient.startClient();
+    try {
+      this.RMIClient.startClient();
+    } catch (NotBoundException e) {
+      e.printStackTrace();
+    }
     this.RMIClient.addListener("NewMessage", this::onNewMessage);
   }
 

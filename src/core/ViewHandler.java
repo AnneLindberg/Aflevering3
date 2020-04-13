@@ -20,12 +20,12 @@ public class ViewHandler
     this.viewModelFactory = viewModelFactory;
   }
 
-  public void start() throws IOException, NotBoundException {
+  public void start() throws IOException {
     stage = new Stage();
     openLogInView();
   }
 
-  public void openChatView() throws IOException, NotBoundException {
+  public void openChatView() throws IOException {
       Parent root = loadFXML("../view/chatview/chatView.fxml");
       stage.setTitle("ChatWindow");
       chatScene = new Scene(root);
@@ -33,17 +33,16 @@ public class ViewHandler
       stage.show();
   }
 
-  public void openLogInView() throws IOException, NotBoundException {
+  public void openLogInView() throws IOException {
     Parent root = loadFXML("../view/loginview/logIn.fxml");
     stage.setTitle("Log In Window");
     Scene logInScene = new Scene(root);
     stage.setScene(logInScene);
     stage.show();
-
   }
 
 
-  private Parent loadFXML(String path) throws IOException, NotBoundException {
+  private Parent loadFXML(String path) throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource(path));
     Parent root = null;
@@ -54,7 +53,11 @@ public class ViewHandler
     }
 
     ViewController controller = loader.getController();
-    controller.init(this, viewModelFactory);
+    try {
+      controller.init(this, viewModelFactory);
+    } catch (NotBoundException e) {
+      e.printStackTrace();
+    }
     return root;
   }
 }
