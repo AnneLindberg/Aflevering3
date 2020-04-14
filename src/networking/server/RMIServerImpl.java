@@ -25,7 +25,11 @@ public class RMIServerImpl implements RMIServer {
     @Override
     public void broadcastMessage(String message) {
         for (RMIClient client : this.clientsForBroadcast) {
-            client.messageReceived(message);
+            try {
+                client.messageReceived(message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -42,7 +46,11 @@ public class RMIServerImpl implements RMIServer {
     public void greetingsMessage(RMIClient notForMe) {
         for (RMIClient client : this.clientsForBroadcast) {
             if (client.equals(notForMe)) continue;
-            client.messageReceived(notForMe.getUsername() + " has entered the chat");
+            try {
+                client.messageReceived(notForMe.getUsername() + " has entered the chat");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 

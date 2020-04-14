@@ -11,6 +11,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class RMIClientImpl implements RMIClient {
 
@@ -25,9 +26,10 @@ public class RMIClientImpl implements RMIClient {
     @Override
     public void startClient() throws IOException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-        server = (RMIServer) registry.lookup("Server");
-        //server.registerClient(this);
-        System.out.println("Client connected to server hehe");
+        this.server = (RMIServer) registry.lookup("Server");
+        UnicastRemoteObject.exportObject(this, 0);
+        server.registerClient(this);
+        System.out.println("Client connected to server hehe " + this.server);
     }
 
     @Override

@@ -8,6 +8,7 @@ import networking.shared.Message;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.rmi.RemoteException;
 
 public class ChatViewModel implements PropertyChangeListener
 {
@@ -46,8 +47,12 @@ public class ChatViewModel implements PropertyChangeListener
   }
 
   public void sendMessage() {
-    Message message = new Message(userMessage.getValue());
-    this.userModel.sendMessage(message);
-    this.userMessage.setValue("");
+    try {
+      Message message = new Message(userMessage.getValue());
+      this.userModel.sendMessage(message);
+      this.userMessage.setValue("");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

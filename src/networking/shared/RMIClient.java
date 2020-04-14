@@ -5,12 +5,14 @@ import utility.PropertyChangeSubject;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-public interface RMIClient extends PropertyChangeSubject {
-    void messageReceived(String message);
-    String getUsername();
-    void sendMessage(Message message);
-    void setUsername(String username);
-    void startClient() throws IOException, NotBoundException;
-    void greetingsMessage(Message message);
+public interface RMIClient extends PropertyChangeSubject, Remote {
+    void messageReceived(String message) throws RemoteException;
+    String getUsername() throws RemoteException;
+    void sendMessage(Message message) throws RemoteException;
+    void setUsername(String username) throws RemoteException;
+    void startClient() throws RemoteException, IOException, NotBoundException;
+    void greetingsMessage(Message message) throws RemoteException;
 }

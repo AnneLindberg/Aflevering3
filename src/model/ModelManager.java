@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 public class ModelManager implements Model {
   private PropertyChangeSupport property = new PropertyChangeSupport(this);  //Subject part
@@ -32,17 +33,16 @@ public class ModelManager implements Model {
   }
 
   @Override
-  public void setUserName(String name) {
+  public void setUserName(String name) throws RemoteException {
     this.RMIClient.setUsername(name);
   }
 
   @Override
-  public void sendMessage(Message message) {
+  public void sendMessage(Message message) throws RemoteException {
     this.RMIClient.sendMessage(message);
   }
 
-  @Override public void greetingsMessage(Message message)
-  {
+  @Override public void greetingsMessage(Message message) throws RemoteException {
     this.RMIClient.greetingsMessage(message);
   }
 

@@ -5,6 +5,8 @@ import javafx.beans.property.StringProperty;
 import model.Model;
 import networking.shared.Message;
 
+import java.rmi.RemoteException;
+
 public class LogInViewModel
 {
   private Model userModel;
@@ -21,9 +23,13 @@ public class LogInViewModel
   }
 
   public void login() {
-    this.userModel.setUserName(this.username.getValue());
-    System.out.println(this.username.get());
-    Message newUser = new Message(" has entered the chat");
-    this.userModel.greetingsMessage(newUser);
+      try {
+          this.userModel.setUserName(this.username.getValue());
+          System.out.println(this.username.get());
+          Message newUser = new Message(" has entered the chat");
+          this.userModel.greetingsMessage(newUser);
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
   }
 }
