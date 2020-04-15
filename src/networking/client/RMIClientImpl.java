@@ -47,7 +47,7 @@ public class RMIClientImpl implements RMIClient, Client {
   @Override
   public void sendMessage(Message message) {
         try {
-            server.sendMessage(message);
+            server.sendMessage(new Message(this.username + ": " + message));
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -68,6 +68,8 @@ public class RMIClientImpl implements RMIClient, Client {
     public void greetingsMessage(Message message) {
         try {
             this.server.greetingsMessage(this);
+          System.out.println("greeting in RMOClientImpl");
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
