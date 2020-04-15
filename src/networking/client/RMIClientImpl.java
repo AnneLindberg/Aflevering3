@@ -13,7 +13,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RMIClientImpl implements RMIClient {
+public class RMIClientImpl implements RMIClient, Client {
 
     private String username;
     private PropertyChangeSupport property;
@@ -21,15 +21,6 @@ public class RMIClientImpl implements RMIClient {
 
     public RMIClientImpl() {
         this.property = new PropertyChangeSupport(this);
-    }
-
-    @Override
-    public void startClient() throws IOException, NotBoundException {
-        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-        this.server = (RMIServer) registry.lookup("Server");
-        UnicastRemoteObject.exportObject(this, 0);
-        server.registerClient(this);
-        System.out.println("Client connected to server hehe " + this.server);
     }
 
     @Override
@@ -43,8 +34,18 @@ public class RMIClientImpl implements RMIClient {
         return this.username;
     }
 
-    @Override
-    public void sendMessage(Message message) {
+  @Override
+    public void startClient() throws RemoteException, NotBoundException
+  {
+        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+        this.server = (RMIServer) registry.lookup("Server");
+        UnicastRemoteObject.exportObject(this, 0);
+        server.registerClient(this);
+        System.out.println("Client connected to server ");
+    }
+
+  @Override
+  public void sendMessage(Message message) {
         try {
             server.sendMessage(message);
         } catch (RemoteException e) {

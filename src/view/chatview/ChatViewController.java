@@ -8,7 +8,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import view.ViewController;
 import viewmodel.ChatViewModel;
-
 import java.io.IOException;
 import java.rmi.NotBoundException;
 
@@ -20,8 +19,7 @@ public class ChatViewController implements ViewController
   private ChatViewModel chatViewModel;
   private ViewHandler viewHandler;
 
-
-  public ChatViewController() throws IOException
+  public ChatViewController()
   {
   }
 
@@ -48,7 +46,15 @@ public class ChatViewController implements ViewController
   }
 
 
-  public void onLogin(ActionEvent actionEvent) throws IOException, NotBoundException {
-    viewHandler.openLogInView();
+  public void onLogin(ActionEvent actionEvent)
+  {
+    try
+    {
+      viewHandler.openLogInView();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 }

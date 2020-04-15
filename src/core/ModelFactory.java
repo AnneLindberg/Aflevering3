@@ -15,9 +15,10 @@ public class ModelFactory
     this.clientFactory=clientFactory;
   }
 
-  public Model getModel() throws IOException, NotBoundException {
+  public Model getModel() throws IOException, NotBoundException
+  {
     if(model == null){
-      model = new ModelManager(clientFactory.getRMIClient());
+      model = new ModelManager(clientFactory.getClient());
     }
     return model;
   }

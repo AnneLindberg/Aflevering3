@@ -5,17 +5,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import model.Model;
 import networking.shared.Message;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.rmi.RemoteException;
 
 public class ChatViewModel implements PropertyChangeListener
 {
   private Model userModel;
   private StringProperty userMessage;
   private StringProperty poolMessages;
-
 
   public ChatViewModel(Model userModel)
   {
@@ -39,7 +36,6 @@ public class ChatViewModel implements PropertyChangeListener
       }
     });
   }
-
 
   public StringProperty getPoolMessagesProperty()
   {

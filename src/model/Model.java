@@ -2,9 +2,6 @@ package model;
 
 import networking.shared.Message;
 import utility.PropertyChangeSubject;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.rmi.RemoteException;
 
 public interface Model extends PropertyChangeSubject{

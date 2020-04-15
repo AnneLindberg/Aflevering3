@@ -28,9 +28,12 @@ public class ViewModelFactory
   public LogInViewModel getLogInViewModel() throws IOException {
     if (logInViewModel == null)
     {
-      try {
+      try
+      {
         logInViewModel = new LogInViewModel(modelFactory.getModel());
-      } catch (NotBoundException e) {
+      }
+      catch (NotBoundException e)
+      {
         e.printStackTrace();
       }
     }

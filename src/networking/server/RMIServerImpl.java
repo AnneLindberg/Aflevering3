@@ -33,15 +33,6 @@ public class RMIServerImpl implements RMIServer {
         }
     }
 
-    /*@Override
-    public void setUsername(String username, RMIClient client) {
-        for (RMIClient myClient : this.clientsForBroadcast) {
-            if (myClient.equals(client)){
-                myClient.setUsername(username);
-            }
-        }
-    }*/
-
     @Override
     public void greetingsMessage(RMIClient notForMe) {
         for (RMIClient client : this.clientsForBroadcast) {

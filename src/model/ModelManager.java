@@ -1,26 +1,22 @@
 package model;
 
-import networking.shared.RMIClient;
+import networking.client.Client;
 import networking.shared.Message;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ModelManager implements Model {
   private PropertyChangeSupport property = new PropertyChangeSupport(this);  //Subject part
-  private RMIClient RMIClient;
+  private Client client;
 
-  public ModelManager(RMIClient RMIClient) throws IOException {
-    this.RMIClient = RMIClient;
-    try {
-      this.RMIClient.startClient();
-    } catch (NotBoundException e) {
-      e.printStackTrace();
-    }
-    this.RMIClient.addListener("NewMessage", this::onNewMessage);
+  public ModelManager(Client client) throws RemoteException, NotBoundException
+  {
+    this.client = client;
+    this.client.startClient();
+    this.client.addListener("NewMessage", this::onNewMessage);
   }
 
   private void onNewMessage(PropertyChangeEvent event) {
@@ -33,17 +29,20 @@ public class ModelManager implements Model {
   }
 
   @Override
-  public void setUserName(String name) throws RemoteException {
-    this.RMIClient.setUsername(name);
+  public void setUserName(String name)
+  {
+    this.client.setUsername(name);
   }
 
   @Override
-  public void sendMessage(Message message) throws RemoteException {
-    this.RMIClient.sendMessage(message);
+  public void sendMessage(Message message)
+  {
+    this.client.sendMessage(message);
   }
 
-  @Override public void greetingsMessage(Message message) throws RemoteException {
-    this.RMIClient.greetingsMessage(message);
+  @Override public void greetingsMessage(Message message)
+  {
+    this.client.greetingsMessage(message);
   }
 
   @Override
