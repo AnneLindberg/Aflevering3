@@ -39,7 +39,6 @@ public class RMIServerImpl implements RMIServer {
             if (client.equals(notForMe)) continue;
             try {
                 client.messageReceived(notForMe.getUsername() + " has entered the chat");
-                System.out.println("greeting one");
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

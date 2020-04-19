@@ -35,14 +35,18 @@ public class RMIClientImpl implements RMIClient, Client {
     }
 
   @Override
-    public void startClient() throws RemoteException, NotBoundException
+    public void startClient()
   {
-        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-        this.server = (RMIServer) registry.lookup("Server");
-        UnicastRemoteObject.exportObject(this, 0);
-        server.registerClient(this);
-        System.out.println("Client connected to server ");
-    }
+      try {
+          Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+          this.server = (RMIServer) registry.lookup("Server");
+          UnicastRemoteObject.exportObject(this, 0);
+          server.registerClient(this);
+          System.out.println("Client connected to server ");
+      } catch (RemoteException | NotBoundException e){
+          e.printStackTrace();
+      }
+  }
 
   @Override
   public void sendMessage(Message message) {
@@ -56,11 +60,6 @@ public class RMIClientImpl implements RMIClient, Client {
     @Override
     public void setUsername(String username) {
         this.username = username;
-        try {
-            server.registerClient(this);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -68,8 +67,6 @@ public class RMIClientImpl implements RMIClient, Client {
     public void greetingsMessage(Message message) {
         try {
             this.server.greetingsMessage(this);
-          System.out.println("greeting in RMOClientImpl");
-
         } catch (RemoteException e) {
             e.printStackTrace();
         }
