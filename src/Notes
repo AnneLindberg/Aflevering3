@@ -1,32 +1,5 @@
 
-/*
- * FINISHED: Merge Model into 1 interface
- * TODO: binding View-ViewModel
- * TODO: Add the user to userlist column
- * TODO: Make sure messages (probably also users) aren’t deleted when you exit specific views. Save messages
- * TODO: Make RMIClient interact/chat
- * TODO: Observer patterns finish ???
- * TODO: Clean up code
- * TODO Troels:
- *      - FINISHED toString() in Model interface
- *      - Confusion because of implementing the Listener interface instead of anonymous implementation
- *      - FINISHED Model is set up correctly as Subject
- *      - FINISHED I don't understand UserList::getUserName(), it just returns the argument again?
- *      - FINISHED Rename EchoServer
- *      - FINISHED Rename userView to loginView
- *      - FINISHED name packages with lowercase
- *      - Focus on 1 feature at a time.
- *      - DET MESTE SER UD TIL AT VAERE PA DEN RIGTIGE VEJ!!!
- * */
-
-
- for the new and cool project:
- * Make a runClient and then delete RunApp and ClientApp
- * we need a controller for the RMIClient --> MVVM and connect
- * We need the receive class --> follow Steffens video
-
- Last things:
- * Make loginview Work
- * Clean up the mess
- * Make
+//Things to do later on, maybe before exam or when we are bored
+ * TODO: Make user has entered the chat a color and italic
+ * TODO: Make a message when user exits chat
 
